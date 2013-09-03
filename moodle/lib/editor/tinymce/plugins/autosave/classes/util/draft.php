@@ -52,7 +52,7 @@ class draft {
      * @param {int} $userAssignid the draft id of the currently using draft
      * @return {Boolean} return true to show successfully set
      */
-    function setId($userAssignId) {
+    function setDraftData($userAssignId) {
       
         $this->userId=$userAssignId;
 
@@ -143,56 +143,6 @@ class draft {
     function setData($dataAssigned) {
       
         $this->data=$dataAssigned;
-
-        return true;
-    }
-    
-    var $lastInsertedId;
-    /**
-     * Constructor
-     * The first draft data is stored through this
-     * @param {int} the id of the last inserted data to the draft table
-     */
-    function setInitialDraft($formId,$userId,$editedTime,$data,$attachmentId) {
-        global $DB;
-        $this->userId=$userId;
-        $this->formId=$formId;
-        $this->data=$data;
-        $this->editedTime=$editedTime;
-        $this->attachmentid=$attachmentId;
-       
-        
-        $this->lastInsertedId = $DB->insert_record('draft' ,$this, $returnid = true, $bulk = false);
-    }
-
-    /**
-     * gets data from draft table for final submission
-     * @param {int} $draftId the draft id of the currently using draft
-     * @param {Array} $draftData stors all the records related to that draft
-     * @return {Array} array of record for that draft
-     */
-    function getDraftData($formId) {
-        global $DB;
-        $draftData = $DB->get_record('draft', array('formid' => '$formId'));
-
-        return $draftData;
-    }
-
-    /**
-     * sets data to draft table whenever data retrieved
-     * @param {int} $draftId the draft id of the currently using draft
-     * @param {Array} $draftData stors all the records related to that draft
-     * @return {Boolean} return true to show successfully saved
-     */
-    function setIntermediateDraft($formId,$userId,$editedTime,$data,$attachmentId) {
-        global $DB;
-        $this->userId=$userId;
-        $this->formId=$formId;
-        $this->data=$data;
-        $this->editedTime=$editedTime;
-        $this->attachmentid=$attachmentId;
-        $DB->update_record('draft', $this, $bulk = false);
-
 
         return true;
     }
