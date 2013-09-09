@@ -35,7 +35,7 @@ class draft {
     var $editedTime;
     var $formId;
     var $data;
-    var $attachmentid;
+    var $attachmentid=0;
     
     /**
      * get userid 

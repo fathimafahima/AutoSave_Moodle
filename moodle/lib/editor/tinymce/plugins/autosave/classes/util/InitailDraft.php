@@ -35,11 +35,19 @@
      * The first draft data is stored through this
      * @param {int} the id of the last inserted data to the draft table
      */
-    function setInitialDraft() {
+require('../../../../../config.php'); 
+    function InitialDraft() {
+       
                global $DB;
-        $draftData=new draft();
+       /* $draftData=new draft();
+              $draftData->userId=$_POST['id'];
+         $draftData->editedTime=$_POST['editedtime'];
+       $draftData->formId=$_POST['mform1'];
+             $draftData->data=$_POST['Content'];*/
+              $draftData->attachmentid=0;
         if(isset($_POST['id']) && !empty($_POST['id'])) {
                   $draftData->userId=$_POST['id'];
+                  print 'test';
             }
 
         if(isset($_POST['editedtime']) && !empty($_POST['editedtime'])) {
@@ -48,8 +56,8 @@
        if(isset($_POST['mform1']) && !empty($_POST['mform1'])) {
                   $draftData->formId=$_POST['mform1'];
             }
-       if(isset($_POST['id_summary_editor']) && !empty($_POST['id_summary_editor'])) {
-                  $draftData->data=$_POST['id_summary_editor'];
+       if(isset($_POST['Content']) && !empty($_POST['Content'])) {
+                  $draftData->data=$_POST['Content'];
             }
        
            if(isset($_POST['attached']) && !empty($_POST['attached']) && $_POST['attached']==1)  {
@@ -59,9 +67,9 @@
             }  
             
     
-      
+      print 'test';
  
-        $this->lastInsertedId = $DB->insert_record($draft, $draftData, $returnid = true, $bulk = false);
+        $this->lastInsertedId = $DB->insert_record('editor_autosave', $draftData);
     }
 
     

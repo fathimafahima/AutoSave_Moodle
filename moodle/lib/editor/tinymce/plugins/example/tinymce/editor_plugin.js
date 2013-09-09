@@ -16,7 +16,7 @@
 
                         // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
                         ed.addCommand('mceExample', function() {
-                                ed.windowManager.open({
+                               ed.windowManager.open({
                                         file : ed.getParam("moodle_plugin_base") + 'example/tinymce/example.html', 
                                         width : 520 + ed.getLang('example.delta_width', 0),
                                         height : 320 + ed.getLang('example.delta_height', 0),

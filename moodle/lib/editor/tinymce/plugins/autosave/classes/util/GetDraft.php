@@ -11,25 +11,22 @@
      * @param {Array} $draftData stors all the records related to that draft
      * @return {Array} array of record for that draft
      */
-    function getDraftData($formId) {
+    function GetDraft() {
         global $DB;
-        $draftData = $DB->get_record('draft', array('formid' => '$formId'));
-
-        return $draftData;
-    }
-
-    /**
-     * sets data to draft table whenever data retrieved
-     * @param {int} $draftId the draft id of the currently using draft
-     * @param {Array} $draftData stors all the records related to that draft
-     * @return {Boolean} return true to show successfully saved
-     */
-    function setDraftData($draftData) {
-        global $DB;
-        $DB->update_record($draft, $draftData, $bulk = false);
-
-
+       // $draftData = $DB->get_record('course', array('id' => 1));
+         global $DB;
+         $draftData=new Draft();
+//= $DB->get_record_sql('SELECT fullname FROM {user} WHERE id=?', array(2));
+    $draftData->userId=1;
+     $draftData->editedTime=10000;
+      $draftData->formId=30;
+       $draftData->data='Assalamu Aleikum';
+        $draftData->attachmentid=1;
+    
+$DB->insert_record('editor_autosave', $draftData, $returnid = true, $bulk = false);
         return true;
     }
+
+  
 
 ?>

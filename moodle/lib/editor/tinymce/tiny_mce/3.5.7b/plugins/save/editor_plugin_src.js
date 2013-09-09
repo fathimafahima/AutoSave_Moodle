@@ -59,7 +59,6 @@
 				return;
 
 			tinyMCE.triggerSave();
-
 			// Use callback instead
 			if (os = ed.getParam("save_onsavecallback")) {
 				if (ed.execCallback('save_onsavecallback', ed)) {

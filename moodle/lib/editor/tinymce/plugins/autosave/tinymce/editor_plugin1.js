@@ -1,6 +1,5 @@
 (function() {
-         var PLUGIN_NAME = 'autosave';
-       //  Dispatcher = tinymce.util.Dispatcher;
+    
         // Load plugin specific language pack
         tinymce.PluginManager.requireLangPack('autosave');
 
@@ -15,39 +14,6 @@
                  */
                 init : function(ed, url) {
 
-
-                var self = this, settings = ed.settings;
-
-			self.editor = ed;
-
-			// Parses the specified time string into a milisecond number 10m, 10s etc.
-			function parseTime(time) {
-				var multipels = {
-					s : 1000,
-					m : 60000
-				};
-
-				time = /^(\d+)([ms]?)$/.exec('' + time);
-
-				return (time[2] ? multipels[time[2]] : 1) * parseInt(time);
-			};
-
-			// Default config
-			tinymce.each({
-				//ask_before_unload : TRUE,
-				interval : '30s',
-				retention : '20m',
-				minlength : 50
-			}, function(value, key) {
-				key = PLUGIN_NAME + '_' + key;
-
-				if (settings[key] === undefined)
-					settings[key] = value;
-			});
-
-			// Parse times
-			settings.autosave_interval = parseTime(settings.autosave_interval);
-			settings.autosave_retention = parseTime(settings.autosave_retention);
                         // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
                       // ed.addCommand('mceautosave', function() {
                       /*  $.ajax({url: '../classes/util/InitialDraft.php',
@@ -137,10 +103,12 @@
                                 });*/
           //  });
 
-                    
+                      var t = this;
+
+			t.editor = ed;
 
 			// Register commands
-			/*ed.addCommand('mceautoave', t._save, t);
+			ed.addCommand('mceautoave', t._save, t);
 			
 
 			// Register buttons
@@ -148,34 +116,25 @@
                                 title : 'autosave Plugin',
                                 cmd : 'mceautosave',
                                 image : url + '/img/loaderWhite.gif'
-                        });*/
+                        });
 			
                         // Register example button
                        
-                      	ed.onInit.add(function() {
-				// Check if the user added the restore button, then setup auto storage logic
-				//if (ed.controlManager.get(RESTORE_DRAFT)) {
-					// Setup storage engine
-					//self.setupStorage(ed);
-
-					// Auto save contents each interval time
-					setInterval(function() {
-						//if (!ed.removed) {
-							self.storeDraft();
-							//ed.nodeChanged();
-						//}
-					}, settings.autosave_interval);
-				//}
-			}); 
-                        //self.onStoreDraft = new Dispatcher(self);
+                        
                 },
                 
                 
-               
+                _nodeChange : function(ed, cm, n) {
+			var ed = this.editor;
+
+			if (ed.getParam('save_enablewhendirty')) {
+				cm.setDisabled('autosave', !ed.isDirty());
+				cm.setDisabled('cancel', !ed.isDirty());
+			}
+		},
                         
-               storeDraft : function() {
+               _save : function() {
 			var ed = this.editor, formObj, os, i, elementId;
-                        var self = this;
 
 			formObj = tinymce.DOM.get(ed.id).form || tinymce.DOM.getParent(ed.id, 'form');
 
@@ -184,7 +143,7 @@
 
 			tinyMCE.triggerSave();
 			// Use callback instead
-			/*if (os = ed.getParam("save_onsavecallback")) {
+			if (os = ed.getParam("save_onsavecallback")) {
 				if (ed.execCallback('save_onsavecallback', ed)) {
 					ed.startContent = tinymce.trim(ed.getContent({format : 'raw'}));
 					ed.nodeChanged();
@@ -192,9 +151,9 @@
 
 				return;
 			}
-*/
+
 			if (formObj) {
-				//ed.isNotDirty = true;
+				ed.isNotDirty = true;
 
 				if (formObj.onsubmit == null || formObj.onsubmit() != false){
                                     /*$.ajax({url: '../classes/util/InitialDraft.php',
@@ -213,16 +172,11 @@
                                         alert(output);
                                     }
                                 });*/
-                           content = ed.getContent({draft: true});
                            formObj.submit();
-                         /*  self.onStoreDraft.dispatch(self, {
-						//expires : expires,
-						content : content
-					});*/
                                 }
 					//
 
-				//ed.nodeChanged();
+				ed.nodeChanged();
 			} else
 				ed.windowManager.alert("Error: No form element found.");
 		},         

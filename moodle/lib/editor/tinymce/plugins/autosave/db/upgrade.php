@@ -30,7 +30,7 @@ function xmldb_tinymce_autosave_upgrade($oldversion) {
     $dbman = $DB->get_manager();
     $result=true;
 
-   if ($oldversion < 2013090101) {
+   if ($oldversion <2013090750) {
 
         // Define table mdl_draft to be created
         $table = new xmldb_table('editor_autosave');
@@ -52,7 +52,7 @@ function xmldb_tinymce_autosave_upgrade($oldversion) {
         }
 
         // autosave savepoint reached
-        upgrade_plugin_savepoint(true, 2013090101, 'tinymce', 'autosave');
+        upgrade_plugin_savepoint(true, 2013090750, 'tinymce', 'autosave');
     
 }
 return $result;

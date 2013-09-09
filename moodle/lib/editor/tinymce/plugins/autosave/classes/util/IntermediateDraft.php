@@ -29,44 +29,39 @@
 //
 
 
-class draftHandler {
 
-    var $lastInsertedId;
     /**
      * Constructor
      * The first draft data is stored through this
      * @param {int} the id of the last inserted data to the draft table
      */
-    function draftHandler($draftData) {
-        global $DB;
-        $this->lastInsertedId = $DB->insert_record($draft, $draftData, $returnid = true, $bulk = false);
+    function setInitialDraft() {
+               global $DB;
+        $draftData=new draft();
+        if(isset($_POST['id']) && !empty($_POST['id'])) {
+                  $draftData->userId=$_POST['id'];
+            }
+
+        if(isset($_POST['editedtime']) && !empty($_POST['editedtime'])) {
+                  $draftData->editedTime=$_POST['editedtime'];
+            }
+       if(isset($_POST['mform1']) && !empty($_POST['mform1'])) {
+                  $draftData->formId=$_POST['mform1'];
+            }
+       if(isset($_POST['id_summary_editor']) && !empty($_POST['id_summary_editor'])) {
+                  $draftData->data=$_POST['id_summary_editor'];
+            }
+       
+           if(isset($_POST['attached']) && !empty($_POST['attached']) && $_POST['attached']==1)  {
+       $draftData->attachmentid= $DB->get_record_sql('SELECT itemid FROM {files} WHERE userid = ? AND timemodified = ?', 
+                       array($draftData->userId,  $draftData->editedTime));
+            
+            }  
+            
+    
+      
+ 
+        $this->lastInsertedId = $DB->update_record('editor_autosave', $draftData,  $bulk = false);
     }
 
-    /**
-     * gets data from draft table for final submission
-     * @param {int} $draftId the draft id of the currently using draft
-     * @param {Array} $draftData stors all the records related to that draft
-     * @return {Array} array of record for that draft
-     */
-    function getDraftData($formId) {
-        global $DB;
-        $draftData = $DB->get_record('draft', array('formid' => '$formId'));
-
-        return $draftData;
-    }
-
-    /**
-     * sets data to draft table whenever data retrieved
-     * @param {int} $draftId the draft id of the currently using draft
-     * @param {Array} $draftData stors all the records related to that draft
-     * @return {Boolean} return true to show successfully saved
-     */
-    function setDraftData($draftData) {
-        global $DB;
-        $DB->update_record($draft, $draftData, $bulk = false);
-
-
-        return true;
-    }
-
-}
+    
