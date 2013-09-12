@@ -1,39 +1,14 @@
 <?php
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * AutoSave upgrade script.
- *
- * @package   tinymce_autosave
- * @copyright 2013 fahima
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-/*
- * This class is used to encapsulate each  draft data 
- */
-
-//
-
+//use draft;
+ 
+require('../../../../../../config.php'); 
 
 class draft {
 
-    var $userId;
+    var $userid;
     var $editedTime;
-    var $formId;
+    var $formid;
     var $data;
     var $formURL;
     var $attachmentid=0;
@@ -43,9 +18,9 @@ class draft {
      * @param {int} $userid the user id of the required draft
      * @return {int} userid of that draft
      */
-    function getUserId() {
+    function getUserid() {
           
-        return $this->userId ;
+        return $this->userid ;
     }
 
     /**
@@ -55,7 +30,7 @@ class draft {
      */
     function setDraftData($userAssignId) {
       
-        $this->userId=$userAssignId;
+        $this->userid=$userAssignId;
 
         return true;
     }
@@ -109,9 +84,9 @@ class draft {
      * @param {int} $formId the formId of the required draft
      * @return {int} formId of that draft
      */
-    function getformId() {
+    function getformid() {
           
-        return $this->formId ;
+        return $this->formid ;
     }
 
     /**
@@ -121,7 +96,7 @@ class draft {
      */
     function setFormId($formIdAssigned) {
       
-        $this->formId=$formIdAssigned;
+        $this->formid=$formIdAssigned;
 
         return true;
     }
@@ -171,3 +146,44 @@ class draft {
     }
 
 }
+//$draftData=new draft();
+global $DB;
+
+
+global $USER;
+
+$userid = $USER->id;
+//$userId=$_GET['id'];
+ // $editedTime=  time();
+  // $formId=$_GET['mform1'];
+   //$data=$_GET['Content'];
+  //   $attachmentid=0;
+   //$formURL=$_GET['formURL'];
+   
+    
+     //$this->lastInsertedId = $DB->insert_record('editor_autosave', $draftData);
+
+$link = $_GET['link'];
+$formType = $_GET['formType'];
+$textData = $_GET['textdata'];
+$editedTime=  (int)time();
+ $attachmentid=0;
+ //$draftData=new  draft();
+ $draftData=new draft();
+ $draftData->userid=(int)$userid;
+
+ 
+ $draftData->editedTime=$editedTime;
+ $draftData->formid=$formType; 
+ $draftData->data=$textData;
+ $draftData->attachmentid=$attachmentid;
+ 
+ $draftData->formURL=$link;
+
+//echo "helooo".$id.$link.$formType.$textData.$editedTime.$attachmentid;
+ echo $DB->insert_record('editor_autosave', $draftData);
+//echo date("l jS \of F Y h:i:s A");
+//echo time();
+ 
+//echo $query1;
+?>

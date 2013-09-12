@@ -31,9 +31,9 @@
 
 class draft {
 
-    var $userId;
+    var $userid;
     var $editedTime;
-    var $formId;
+    var $formid;
     var $data;
     var $formURL;
     var $attachmentid=0;
@@ -43,9 +43,9 @@ class draft {
      * @param {int} $userid the user id of the required draft
      * @return {int} userid of that draft
      */
-    function getUserId() {
+    function getUserid() {
           
-        return $this->userId ;
+        return $this->userid ;
     }
 
     /**
@@ -55,7 +55,7 @@ class draft {
      */
     function setDraftData($userAssignId) {
       
-        $this->userId=$userAssignId;
+        $this->userid=$userAssignId;
 
         return true;
     }
@@ -109,9 +109,9 @@ class draft {
      * @param {int} $formId the formId of the required draft
      * @return {int} formId of that draft
      */
-    function getformId() {
+    function getformid() {
           
-        return $this->formId ;
+        return $this->formid ;
     }
 
     /**
@@ -121,7 +121,7 @@ class draft {
      */
     function setFormId($formIdAssigned) {
       
-        $this->formId=$formIdAssigned;
+        $this->formid=$formIdAssigned;
 
         return true;
     }

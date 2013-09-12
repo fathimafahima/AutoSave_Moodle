@@ -35,38 +35,44 @@
      * The first draft data is stored through this
      * @param {int} the id of the last inserted data to the draft table
      */
-require('../../../../../config.php'); 
+require('../../../../../../../config.php'); 
     function InitialDraft() {
        
                global $DB;
-       /* $draftData=new draft();
-              $draftData->userId=$_POST['id'];
+               echo'sucess done';
+               $draftData=(object)draft;
+       //$draftData=new draft();
+             /* $draftData->userId=$_POST['id'];
          $draftData->editedTime=$_POST['editedtime'];
        $draftData->formId=$_POST['mform1'];
              $draftData->data=$_POST['Content'];*/
               $draftData->attachmentid=0;
-        if(isset($_POST['id']) && !empty($_POST['id'])) {
-                  $draftData->userId=$_POST['id'];
+       if(isset($_GET['id']) && !empty($_GET['Id'])) {
+                  $draftData->userId=$_GET['id'];
                   print 'test';
             }
 
-        if(isset($_POST['editedtime']) && !empty($_POST['editedtime'])) {
-                  $draftData->editedTime=$_POST['editedtime'];
+        if(isset($_GET['editedtime']) && !empty($_GET['editedtime'])) {
+                  $draftData->editedTime=$_GET['editedtime'];
             }
-       if(isset($_POST['mform1']) && !empty($_POST['mform1'])) {
-                  $draftData->formId=$_POST['mform1'];
+       if(isset($_GET['mform1']) && !empty($_GET['mform1'])) {
+                  $draftData->formId=$_GET['mform1'];
             }
-       if(isset($_POST['Content']) && !empty($_POST['Content'])) {
-                  $draftData->data=$_POST['Content'];
+       if(isset($_GET['Content']) && !empty($_GET['Content'])) {
+                  $draftData->data=$_GET['Content'];
             }
        
-           if(isset($_POST['attached']) && !empty($_POST['attached']) && $_POST['attached']==1)  {
+           if(isset($_GET['attached']) && !empty($_GET['attached']) && $_GET['attached']==1)  {
        $draftData->attachmentid= $DB->get_record_sql('SELECT itemid FROM {files} WHERE userid = ? AND timemodified = ?', 
                        array($draftData->userId,  $draftData->editedTime));
             
             }  
-            
+           if(isset($_GET['formURL']) && !empty($_GET['formURL'])) {
+                  $draftData->formURL=$_GET['formURL'];
+            }
     
+            
+           
       print 'test';
  
         $this->lastInsertedId = $DB->insert_record('editor_autosave', $draftData);

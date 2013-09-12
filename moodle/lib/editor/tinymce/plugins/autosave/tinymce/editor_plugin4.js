@@ -171,7 +171,25 @@
                                     success: function(output) {
                                         alert(output);
                                     }
+                         
                                 });*/
+                           
+                           
+                            YUI.add('my-module', function (Y) {
+   // Write your module code here, and make your module available on the Y
+   // object if desired.
+   Y.MyModule = {
+       sayHello: function () {
+           alert('test');
+       }
+   };
+});
+YUI().use('my-module', function (Y) {
+    // The Y instance here is the same Y instance that was passed into
+    // my-module's add() callback, so the Y.MyModule object that was created
+    // there is now available here as well.
+    Y.MyModule.sayHello();
+});
                            formObj.submit();
                                 }
 					//
