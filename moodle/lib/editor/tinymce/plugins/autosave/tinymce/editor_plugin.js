@@ -248,7 +248,7 @@ var formElement = document.getElementsByTagName("FORM")[0];
 //url:'../InitialDraft.php',
 
                        // data: "id=5&link=hoo&formType=mform&textdata=testing", //you can insert url argumnets here to pass to api.php
-data: 'link=hoo&formType='+formId.toString()+'&textdata='+textEdit,
+data: 'link='+window.location.href+'&formType='+formId.toString()+'&textdata='+textEdit,
                         //for example "id=5&parent=6"
                         /* data: {
                          'id': 1,
@@ -267,11 +267,11 @@ data: 'link=hoo&formType='+formId.toString()+'&textdata='+textEdit,
                         }
                     });
 
-                    var formElement = document.getElementsByTagName("FORM")[0];
+                  /*  var formElement = document.getElementsByTagName("FORM")[0];
                     var formId = formElement.id;
-                    var textEdit = document.getElementById("tinymce");
-                    alnoert(formId);
-                    alert(textEdit.innerHTML);
+                    var textEdit = document.getElementById("tinymce");*/
+                    //alnoert(formId);
+                   // alert(textEdit.innerHTML);
                     //alert(document.getElementById('mform1'));
                     //alert(document.getElementById('tinymce'));
 

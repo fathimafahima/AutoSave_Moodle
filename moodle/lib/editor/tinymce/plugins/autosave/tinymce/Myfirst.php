@@ -10,7 +10,7 @@ class draft {
     var $editedTime;
     var $formid;
     var $data;
-    var $formURL;
+    var $formurl;
     var $attachmentid=0;
     
     /**
@@ -73,7 +73,7 @@ class draft {
      */
     function setFormURL($formURL) {
       
-        $this->formURL=$formURL;
+        $this->formurl=$formURL;
                 
 
         return true;
@@ -167,21 +167,22 @@ $link = $_GET['link'];
 $formType = $_GET['formType'];
 $textData = $_GET['textdata'];
 $editedTime=  (int)time();
+
  $attachmentid=0;
  //$draftData=new  draft();
  $draftData=new draft();
  $draftData->userid=(int)$userid;
 
  
- $draftData->editedTime=$editedTime;
+ $draftData->editedtime=$editedTime;
  $draftData->formid=$formType; 
  $draftData->data=$textData;
  $draftData->attachmentid=$attachmentid;
  
- $draftData->formURL=$link;
+ $draftData->formurl=$link;
 
 //echo "helooo".$id.$link.$formType.$textData.$editedTime.$attachmentid;
- echo $DB->insert_record('editor_autosave', $draftData);
+ echo $DB->insert_record('editor_autosave', $draftData).$link.time();
 //echo date("l jS \of F Y h:i:s A");
 //echo time();
  
