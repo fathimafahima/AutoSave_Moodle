@@ -1,9 +1,16 @@
 (function() {
-    
-        // Load plugin specific language pack
-        tinymce.PluginManager.requireLangPack('example');
 
-        tinymce.create('tinymce.plugins.Example', {
+/**
+ * TinyMCE autosave plugin js .
+ *
+ * @package   tinymce_autosave
+ * @copyright 2013 Fahima
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+        // Load plugin specific language pack
+        tinymce.PluginManager.requireLangPack('delete');
+
+        tinymce.create('tinymce.plugins.Delete', {
                 /**
                  * Initializes the plugin, this will be executed after the plugin has been created.
                  * This call is done before the editor instance has finished it's initialization so use the onInit event
@@ -14,23 +21,23 @@
                  */
                 init : function(ed, url) {
 
-                        // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
-                        ed.addCommand('mceExample', function() {
-                               ed.windowManager.open({
-                                        file : ed.getParam("moodle_plugin_base") + 'example/tinymce/example.html', 
-                                        width : 520 + ed.getLang('example.delta_width', 0),
-                                        height : 320 + ed.getLang('example.delta_height', 0),
+                        // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceDelete');
+                        ed.addCommand('mceDelete', function() {
+                                ed.windowManager.open({
+                                        file : ed.getParam("moodle_plugin_base") + 'delete/tinymce/delete.html', 
+                                        width : 520 + ed.getLang('delete.delta_width', 0),
+                                        height : 320 + ed.getLang('delete.delta_height', 0),
                                         inline : 1
                                 }, {
                                         plugin_url : url
                                     });
                         });
 
-                        // Register example button
-                        ed.addButton('example', {
-                                title : 'Example Plugin',
-                                cmd : 'mceExample',
-                                image : url + '/img/example.gif'
+                        // Register delete button
+                        ed.addButton('delete', {
+                                title : 'Delete Plugin',
+                                cmd : 'mceDelete',
+                                image : url + '/img/example.jpg'
                         });
                         
                 },
@@ -43,7 +50,7 @@
                  */
                 getInfo : function() {
                         return {
-                                longname : 'Example plugin',
+                                longname : 'Delete plugin',
                                 author : 'Some author',
                                 authorurl : '',
                                 infourl : '',
@@ -53,5 +60,5 @@
         });
 
         // Register plugin
-        tinymce.PluginManager.add('example', tinymce.plugins.Example);
+        tinymce.PluginManager.add('delete', tinymce.plugins.Delete);
 })();

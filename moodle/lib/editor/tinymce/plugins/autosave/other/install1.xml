@@ -6,16 +6,17 @@
   <TABLES>
     <TABLE NAME="editor_autosave" COMMENT="Drafting form text">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userid"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" NEXT="userid"/>
         <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="editedtime"/>
         <FIELD NAME="editedtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid" NEXT="formid"/>
         <FIELD NAME="formid" TYPE="text" NOTNULL="true" SEQUENCE="false" PREVIOUS="editedtime" NEXT="data"/>
         <FIELD NAME="data" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="formid" NEXT="attachmentid"/>
         <FIELD NAME="attachmentid" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="data" NEXT="formurl"/>
-        <FIELD NAME="formurl" TYPE="text" NOTNULL="false" SEQUENCE="false" PREVIOUS="attachmentid"/>
+        <FIELD NAME="formurl" TYPE="text" NOTNULL="true" SEQUENCE="false" PREVIOUS="attachmentid" NEXT="autonum"/>
+        <FIELD NAME="autonum" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" PREVIOUS="formurl"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="autonum"/>
       </KEYS>
     </TABLE>
   </TABLES>

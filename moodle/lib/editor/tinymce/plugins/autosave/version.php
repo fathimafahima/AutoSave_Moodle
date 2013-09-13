@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * TinyMCE spellchecker plugin version details.
+ * TinyMCE autosave plugin version details.
  *
  * @package   tinymce_autosave
- * @copyright 2012 Fahima
+ * @copyright 2013 Fahima
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 // The current plugin version (Date: YYYYMMDDXX).
-$plugin->version   = 2013091268;
-//$plugin->version=2013090403;
+$plugin->version   = 2013091353;
+
 // Required Moodle version.
 $plugin->requires  = 2012112900;
 // Full name of the plugin (ued for diagnostics).

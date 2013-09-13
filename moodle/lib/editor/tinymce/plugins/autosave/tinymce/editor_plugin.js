@@ -1,12 +1,19 @@
+/**
+ * TinyMCE autosave plugin js file .
+ *
+ * @package   tinymce_autosave
+ * @copyright 2013 Fahima
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 (function() {
+
     var PLUGIN_NAME = 'autosave';
-    var JQuery;
     var script = document.createElement('script');
     script.src = 'http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js';
     script.type = 'text/javascript';
     document.getElementsByTagName('head')[0].appendChild(script);
-    //  Dispatcher = tinymce.util.Dispatcher;
-    // Load plugin specific language pack
+
     tinymce.PluginManager.requireLangPack('autosave');
 
     tinymce.create('tinymce.plugins.autosave', {
@@ -41,7 +48,6 @@
 
             // Default config
             tinymce.each({
-                //ask_before_unload : TRUE,
                 interval: '30s',
                 retention: '20m',
                 minlength: 50
@@ -55,128 +61,20 @@
             // Parse times
             settings.autosave_interval = parseTime(settings.autosave_interval);
             settings.autosave_retention = parseTime(settings.autosave_retention);
-            // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
-            //ed.addCommand('mceautosave', function() {
-            /*  $.ajax({url: '../classes/util/InitialDraft.php',
-             data: {
-             'id': Integer(1),
-             'editedTime':Integer(213456) ,
-             'mform1': Integer(1),
-             'Content':'TESTING' ,
-             'attached':Integer(0)
-             
-             },
-             
-             
-             type: 'post',
-             success: function(output) {
-             alert(output);
-             }
-             });*/
-            /*tinyMCE.triggerSave();
-             tinyMCE.activeEditor.getContent();
-             });*/
 
-
-            //    YUI().use("io", function (Y) { 
-            //for (var i=1; i<4; i++) {                               
-            // var button = Y.one(".bouton" + i);  
-            //button.on("click", function (e){    
-            //   var id = e.target.get("id");
-            /*  Y.io("../classes/util/InitialDraft.php", {
-             data: {
-             'id': Integer(1),
-             'editedTime':Integer(213456) ,
-             'mform1': Integer(1),
-             'Content':'TESTING' ,
-             'attached':Integer(0)
-             
-             },
-             on: {
-             success: function (o, res) {
-             // document.getElementById("thema").innerHTML = res.responseText;
-             }
-             }
-             });*/
-            // }
-            //);
-            //};
-//});
-            /*$.ajax({url: '../classes/util/InitialDraft.php',
-             data: {
-             'id': Integer(1),
-             'editedTime':Integer(213456) ,
-             'mform1': Integer(1),
-             'Content':'TESTING' ,
-             'attached':Integer(0)
-             
-             },
-             
-             
-             type: 'post',
-             success: function(output) {
-             alert(output);
-             }
-             });*/
-            /*ed.windowManager.open({
-             file : ed.getParam("moodle_plugin_base") + 'autosave/tinymce/autosave.html', 
-             width : 520 + ed.getLang('autosave.delta_width', 0),
-             height : 320 + ed.getLang('autosave.delta_height', 0),
-             inline : 1
-             }, {
-             plugin_url : url
-             });
-             */
-            //print('test');
-            /*$.ajax({url: '../classes/util/InitialDraft.php',
-             data: {
-             'id': Integer(1),
-             'editedTime':Integer(213456) ,
-             'mform1': Integer(1),
-             'Content': editor.getContent({draft: true}),
-             'attached':Integer(0)
-             
-             },
-             type: 'post',
-             success: function(output) {
-             alert(output);
-             }
-             });*/
-            //  });
-
-
-
-            // Register commands
-            /*ed.addCommand('mceautoave', t._save, t);
-             
-             
-             // Register buttons
-             ed.addButton('autosave', {
-             title : 'autosave Plugin',
-             cmd : 'mceautosave',
-             image : url + '/img/loaderWhite.gif'
-             });*/
-
-            // Register example button
 
             ed.onInit.add(function() {
-                // Check if the user added the restore button, then setup auto storage logic
-                //if (ed.controlManager.get(RESTORE_DRAFT)) {
-                // Setup storage engine
-                //self.setupStorage(ed);
+
 
                 // Auto save contents each interval time
                 setInterval(function() {
-                    //if (!ed.removed) {
-                    self.storeDraft();
-                    //
 
-                    //ed.nodeChanged();
-                    //}
+                    self.storeDraft();
+
                 }, settings.autosave_interval);
-                //}
+
             });
-            //self.onStoreDraft = new Dispatcher(self);
+
         },
         storeDraft: function() {
             var ed = this.editor, formObj, os, i, elementId;
@@ -185,130 +83,41 @@
             formObj = tinymce.DOM.get(ed.id).form || tinymce.DOM.getParent(ed.id, 'form');
 
             if (ed.getParam("save_enablewhendirty") && !ed.isDirty())
-                return;
-
-            tinyMCE.triggerSave();
-            // Use callback instead
-            /*if (os = ed.getParam("save_onsavecallback")) {
-             if (ed.execCallback('save_onsavecallback', ed)) {
-             ed.startContent = tinymce.trim(ed.getContent({format : 'raw'}));
-             ed.nodeChanged();
-             }
-             
              return;
-             }
-             */
+             
+             tinyMCE.triggerSave();
+
             if (formObj) {
-                //ed.isNotDirty = true;
+
 
                 if (formObj.onsubmit == null || formObj.onsubmit() != false) {
 
-                    content = ed.getContent({draft: true});
-                    /*YUI().use("io", function (Y) { 
-                     alert('succes'); 
-                     //
-                     Y.io("../classes/util/InitialDraft.php", {
-                     data: {
-                     'id': Integer(1),
-                     'editedTime':Integer(213456) ,
-                     'mform1': Integer(1),
-                     'Content':'TESTING' ,
-                     'attached':Integer(0)
-                     
-                     },
-                     on: {
-                     
-                     
-                     success: function (o, res) {
-                     // document.getElementById("thema").innerHTML = res.responseText;
-                     
-                     
-                     }by goin
-                     }
-                     });});*/
-var formElement = document.getElementsByTagName("FORM")[0];
-                    var formId = formElement.id;
-                   // var textEdit = document.getElementById("tinymce");
-                   var textEdit=tinyMCE.activeEditor.getContent();
-                   /*var editor=ed;
-                    //editor.focusEditor();
-                    var sel = editor._getSelection();
-                        var range = editor._createRange(sel);
-                    if (HTMLArea.is_ie) {
-                        textEdit =range.getHtml();
-                            } else {
-                            textEdit =editor.getHtml();
-                }*/
-                   // alnoert(formId);
-                   // alert(textEdit.innerHTML);
+
+
+                    var formElement = document.getElementsByTagName("FORM")[0];
+                    var formId = formElement.id;                                //get the form id
+                    var textEdit = tinyMCE.activeEditor.getContent();           //get the content inside the editor
+
                     $.ajax({
-                        url: 'http://localhost/moodle-2.4.4/moodle/lib/editor/tinymce/plugins/autosave/tinymce/Myfirst.php', //the script to call to get data          
-                        //    url: 'http://localhost/moodle-2.4.4/moodle/lib/editor/tinymce/plugins/autosave/classes/util/InitialDraft.php',
+                        url: 'http://localhost/moodle-2.4.4/moodle/lib/editor/tinymce/plugins/autosave/tinymce/InitialDraft.php', //the script to call to get data          
 
-//url:'../InitialDraft.php',
 
-                       // data: "id=5&link=hoo&formType=mform&textdata=testing", //you can insert url argumnets here to pass to api.php
-data: 'link='+window.location.href+'&formType='+formId.toString()+'&textdata='+textEdit,
-                        //for example "id=5&parent=6"
-                        /* data: {
-                         'id': 1,
-                         'editedTime':213456 ,
-                         'mform1': 1,
-                         'Content':'TESTING' ,
-                         'attached':0,
-                         'formURL':'http://output',
-                         
-                         },*/
+
+                        data: 'link=' + window.location.href + '&formType=' + formId.toString() + '&textdata=' + textEdit, //sending data
                         datatype: 'text', //data format
-                        //type: 'post', //data format      
+
                         success: function(data)          //on recieve of reply
                         {
                             alert(data);
+                            alert('Successfully saved');
                         }
                     });
 
-                  /*  var formElement = document.getElementsByTagName("FORM")[0];
-                    var formId = formElement.id;
-                    var textEdit = document.getElementById("tinymce");*/
-                    //alnoert(formId);
-                   // alert(textEdit.innerHTML);
-                    //alert(document.getElementById('mform1'));
-                    //alert(document.getElementById('tinymce'));
 
-
-                    // alert(ed.id);
-
-
-
-                    alert('aaa');
-
-                    /*  self.onStoreDraft.dispatch(self, {
-                     //expires : expires,
-                     content : content
-                     });*/
-
-                    //
-
-                    //ed.nodeChanged();
                 } else
-                    ed.windowManager.alert("Error: No form element found.");
+                    ed.windowManager.alert("Error: No form element found."); //When no text is entered to the form
             }
         },
-        /**
-         * Returns information about the plugin as a name/value array.
-         * The current keys are longname, author, authorurl, infourl and version.
-         *
-         * @return {Object} Name/value array containing information about the plugin.
-         getInfo : function() {
-         return {
-         longname : 'autosave plugin',
-         author : 'Fahima',
-         authorurl : '',
-         infourl : '',
-         version : "1.0"
-         };
-         } */
-
     });
 
     // Register plugin

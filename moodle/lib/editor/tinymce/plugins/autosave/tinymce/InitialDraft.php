@@ -1,26 +1,29 @@
 <?php
 
-//use draft;
- 
-require('../../../../../../config.php'); 
+/*
+ * copyright @ fahima 2013
+ * Saving the data in the db table
+ */
+
+require('../../../../../../config.php');
 
 class draft {
 
     var $userid;
-    var $editedTime;
+    var $editedtime;
     var $formid;
     var $data;
     var $formurl;
-    var $attachmentid=0;
-    
+    var $attachmentid = 0;
+
     /**
      * get userid 
      * @param {int} $userid the user id of the required draft
      * @return {int} userid of that draft
      */
     function getUserid() {
-          
-        return $this->userid ;
+
+        return $this->userid;
     }
 
     /**
@@ -29,20 +32,20 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setDraftData($userAssignId) {
-      
-        $this->userid=$userAssignId;
+
+        $this->userid = $userAssignId;
 
         return true;
     }
-    
+
     /**
      * get editedTime 
      * @param {int} $editedTime the last edited time of the required draft
      * @return {int} editedTime of that draft
      */
     function getEditedTime() {
-          
-        return $this->editedTime ;
+
+        return $this->editedTime;
     }
 
     /**
@@ -51,19 +54,20 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setEditedTime($editedTimeAssigned) {
-      
-        $this->editedTime=$editedTimeAssigned;
+
+        $this->editedtimeime = $editedTimeAssigned;
 
         return true;
     }
+
     /**
      * get editedTime 
      * @param {int} $editedTime the last edited time of the required draft
      * @return {int} editedTime of that draft
      */
     function getFormURL() {
-          
-//        return $this->formURL ;
+
+        return $this->formurl;
     }
 
     /**
@@ -72,21 +76,21 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setFormURL($formURL) {
-      
-        $this->formurl=$formURL;
-                
+
+        $this->formurl = $formURL;
+
 
         return true;
     }
-    
+
     /**
      * get formId 
      * @param {int} $formId the formId of the required draft
      * @return {int} formId of that draft
      */
     function getformid() {
-          
-        return $this->formid ;
+
+        return $this->formid;
     }
 
     /**
@@ -95,20 +99,20 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setFormId($formIdAssigned) {
-      
-        $this->formid=$formIdAssigned;
+
+        $this->formid = $formIdAssigned;
 
         return true;
     }
-   
+
     /**
      * get Attachment Id 
      * @param {int} $attachmentId the Attachment Id of the required draft
      * @return {int} attachmentId of that draft
      */
     function getAttachmentId() {
-          
-        return $this->attachmentid ;
+
+        return $this->attachmentid;
     }
 
     /**
@@ -117,8 +121,8 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setAttachmentId($attachmentIdAssigned) {
-      
-        $this->attachmentid=$attachmentIdAssigned;
+
+        $this->attachmentid = $attachmentIdAssigned;
 
         return true;
     }
@@ -129,8 +133,8 @@ class draft {
      * @return {text} data of that draft
      */
     function getData() {
-          
-        return $this->data ;
+
+        return $this->data;
     }
 
     /**
@@ -139,52 +143,34 @@ class draft {
      * @return {Boolean} return true to show successfully set
      */
     function setData($dataAssigned) {
-      
-        $this->data=$dataAssigned;
+
+        $this->data = $dataAssigned;
 
         return true;
     }
 
 }
-//$draftData=new draft();
+
 global $DB;
-
-
 global $USER;
 
-$userid = $USER->id;
-//$userId=$_GET['id'];
- // $editedTime=  time();
-  // $formId=$_GET['mform1'];
-   //$data=$_GET['Content'];
-  //   $attachmentid=0;
-   //$formURL=$_GET['formURL'];
-   
-    
-     //$this->lastInsertedId = $DB->insert_record('editor_autosave', $draftData);
+$userid = $USER->id;   //user id of the current user of the editor
+$link = $_GET['link'];  //url of the current editor page
+$formType = $_GET['formType']; //typr of the form 
+$textData = $_GET['textdata']; //html body
+$editedtime = (int) time(); //edited time of the editor
+$attachmentid = 0;
 
-$link = $_GET['link'];
-$formType = $_GET['formType'];
-$textData = $_GET['textdata'];
-$editedTime=  (int)time();
+$draftData = new draft();
+$draftData->userid = (int) $userid;
+$draftData->editedtime = $editedtime;
+$draftData->formid = $formType;
+$draftData->data = $textData;
+$draftData->attachmentid = $attachmentid;
+$draftData->formurl = $link;
 
- $attachmentid=0;
- //$draftData=new  draft();
- $draftData=new draft();
- $draftData->userid=(int)$userid;
 
- 
- $draftData->editedtime=$editedTime;
- $draftData->formid=$formType; 
- $draftData->data=$textData;
- $draftData->attachmentid=$attachmentid;
- 
- $draftData->formurl=$link;
+echo $DB->insert_record('editor_autosave', $draftData); //save the draft data object in editor_autosave table
 
-//echo "helooo".$id.$link.$formType.$textData.$editedTime.$attachmentid;
- echo $DB->insert_record('editor_autosave', $draftData).$link.time();
-//echo date("l jS \of F Y h:i:s A");
-//echo time();
- 
-//echo $query1;
+
 ?>

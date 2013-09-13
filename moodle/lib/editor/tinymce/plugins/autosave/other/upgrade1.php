@@ -29,23 +29,23 @@ function xmldb_tinymce_autosave_upgrade($oldversion) {
   
     $dbman = $DB->get_manager();
     $result=true;
-
-    if ($oldversion < 2013091315) {
+  if ($oldversion < 2013091300) {
 
         // Define table editor_autosave to be created
         $table = new xmldb_table('editor_autosave');
 
         // Adding fields to table editor_autosave
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
         $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('editedtime', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
         $table->add_field('formid', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
         $table->add_field('data', XMLDB_TYPE_TEXT, null, null, null, null, null);
         $table->add_field('attachmentid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
-        $table->add_field('formurl', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('formurl', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('autonum', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
 
         // Adding keys to table editor_autosave
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('autonum'));
 
         // Conditionally launch create table for editor_autosave
         if (!$dbman->table_exists($table)) {
@@ -53,10 +53,14 @@ function xmldb_tinymce_autosave_upgrade($oldversion) {
         }
 
         // autosave savepoint reached
-        upgrade_plugin_savepoint(true, 2013091315, 'tinymce', 'autosave');
-    
+        upgrade_plugin_savepoint(true,2013091300, 'tinymce', 'autosave');
+    }
 
-    
-}
+
+
+
 return $result;
 }
+
+    // Moodle v2.4.0 release upgrade line
+    // Put any upgrade step following this
