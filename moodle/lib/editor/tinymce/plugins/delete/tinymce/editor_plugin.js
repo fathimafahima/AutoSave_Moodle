@@ -36,7 +36,7 @@
                         data: 'link=' + window.location.href + '&formType=' + formId.toString() , //sending data
                         datatype: 'text', //data format
 
-                        success: function(data)          //on recieve of reply
+                        success: function(data)          //on recieve of repl
                         {
                             alert(data);
                             textdata=data;
