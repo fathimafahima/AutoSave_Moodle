@@ -1,9 +1,9 @@
 <?php
 
-$this->page->requires->js_init_call('M.local_reterievedraft.init',
+/*$this->page->requires->js_init_call('M.local_draft.init',
                     array('this is the param1 value'), false, $jsmodule);
 
-
+*/
 
 /*
  * copyright @ fahima 2013
@@ -184,11 +184,10 @@ list($other1, $id, $other2) = explode('"', $idS);
 echo $id;*/
 $result = $DB->get_records_sql('SELECT data FROM {editor_autosave} WHERE userid = ? AND formurl = ?', array( (int)$userid , $link ));
 $text = serialize($result);
-//list($part1, $part2,$part3,$part4) = explode(';', $text);
-//list($other1, $id, $other2) = explode('"', $part3);
+list($part1, $part2,$part3,$part4) = explode(';', $text);
+list($other1, $data, $other2) = explode('"', $part1);
 
-echo $text;
-
+echo $data;
 
 }
 /*$result = $DB->get_record('editor_autosave', array('userid' => 2, 'id' => 83));
