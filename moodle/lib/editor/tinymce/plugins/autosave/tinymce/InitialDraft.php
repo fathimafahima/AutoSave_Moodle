@@ -190,7 +190,7 @@ $result = $DB->get_records_sql('SELECT id FROM {editor_autosave} WHERE userid = 
 $text = serialize($result);
 list($part1, $part2,$part3,$part4) = explode(';', $text);
 list($other1, $id, $other2) = explode('"', $part3);
-//list($other1, $id, $other2) = explode('"', $part4); 
+
 echo $id;
 
 $draftData->id = (int) $id;
