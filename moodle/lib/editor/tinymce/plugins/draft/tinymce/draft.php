@@ -185,7 +185,7 @@ echo $id;*/
 $result = $DB->get_records_sql('SELECT data FROM {editor_autosave} WHERE userid = ? AND formurl = ?', array( (int)$userid , $link ));
 $text = serialize($result);
 list($part1, $part2,$part3,$part4) = explode(';', $text);
-list($other1, $data, $other2) = explode('"', $part1);
+list($other1, $data) = explode('</p>', $part1);
 
 echo $data;
 
