@@ -39,7 +39,7 @@
 
                         success: function(data)          //on recieve of reply
                         {
-                            alert(data);
+                            //alert(data);
                             textdata=data;
                            if(textdata=='not available'){
                          ed.windowManager.open({

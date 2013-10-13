@@ -29,7 +29,7 @@
 
 
             var self = this, settings = ed.settings;
-
+            var textEd;
             self.editor = ed;
 
             // Parses the specified time string into a milisecond number 10m, 10s etc.
@@ -40,8 +40,7 @@
                 };
 
                 time = /^(\d+)([ms]?)$/.exec('' + time);
-
-
+                
                 return (time[2] ? multipels[time[2]] : 1) * parseInt(time);
             }
             ;
@@ -53,11 +52,11 @@
                 minlength: 50
             }, function(value, key) {
                 key = PLUGIN_NAME + '_' + key;
-
+                  
                 if (settings[key] === undefined)
                     settings[key] = value;
             });
-
+          
             // Parse times
             settings.autosave_interval = parseTime(settings.autosave_interval);
             settings.autosave_retention = parseTime(settings.autosave_retention);
@@ -68,8 +67,16 @@
 
                 // Auto save contents each interval time
                 setInterval(function() {
-
-                    self.storeDraft();
+                    var texts=tinyMCE.activeEditor.getContent();
+                    if(textEd!=texts){
+                      
+                      textEd=texts;  
+                      self.storeDraft();
+                    }
+                    else{
+                        alert('noChange');
+                    }
+                    
 
                 }, settings.autosave_interval);
 
