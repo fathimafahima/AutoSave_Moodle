@@ -1,29 +1,38 @@
-QUICK INSTALL
-=============
 
-For the impatient, here is a basic outline of the
-installation process, which normally takes me only
-a few minutes:
+Integrating an option for AutoSaving user typed data on text forums in Moodle (i.e. Text Assignments) and retrieving the 
+AutoSaved data when needed again. In most of the Moodle operations such as in forms text based interfaces are used to interact with the users.  
+ 
+A common annoyance from users is losing the text inputted in to the form. Sometimes a huge amount of 
+data may be typed to the form. So if a sudden crash happens (i.e. power failure, accidently closing the 
+browser etc.) the huge amount of typed data will be discarded and we will have to type it again from the 
+beginning.  
 
-1) Move the Moodle files into your web directory.
+So this project aims at avoiding this overhead by saving the input added to the form automatically as a 
+draft so that the input data is not lost and enables the users to work on between two sessions.
 
-2) Create a single database for Moodle to store all
-   its tables in (or choose an existing database).
+The implementation of added plugin can be found in Autosave_Moodle/moodle/lib/editor/tinymce/plugins/autosave folder.
 
-3) Visit your Moodle site with a browser, you should
-   be taken to the install.php script, which will lead
-   you through creating a config.php file and then
-   setting up Moodle, creating an admin account etc.
+All the files created under the folder Autosave_Moodle/moodle/lib/editor/tinymce/plugins/autosave are adhered to the following license 
+agreement.
 
-4) Set up a cron task to call the file admin/cron.php
-   every five minutes or so.
-
-
-For more information, see the INSTALL DOCUMENTATION:
-
-   http://docs.moodle.org/en/Installing_Moodle
-
-
-Good luck and have fun!
-Martin Dougiamas, Lead Developer
-
+//This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * AutoSave upgrade script.
+ *
+ * @package   tinymce_autosave
+ * @copyright 2013 fahima
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
