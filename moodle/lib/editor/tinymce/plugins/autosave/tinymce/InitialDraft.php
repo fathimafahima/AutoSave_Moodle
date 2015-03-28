@@ -180,12 +180,7 @@ if($isThere=='b:0;'){
 }
 else if($isThere=='b:1;'){
    
-//$result = $DB->get_record('editor_autosave', array('userid' => (int)$userid/*, 'formurl' => $link*/));
-/*$text = serialize($result);
-list($part1, $part2) = explode('{', $text);
-list($id1, $idS, $userid1, $useridS, $editedtime1, $editedtimeS, $formid1, $formidS, $data1, $dataS, $attachmentid1, $attachmentidS, $formurl1, $formurlS, $other) = explode(';', $part2);
-list($other1, $id, $other2) = explode('"', $idS); 
-echo $id;*/
+
 $result = $DB->get_records_sql('SELECT id FROM {editor_autosave} WHERE userid = ? AND formurl = ?', array( (int)$userid , $link ));
 $text = serialize($result);
 list($part1, $part2,$part3,$part4) = explode(';', $text);
@@ -197,23 +192,5 @@ $draftData->id = (int) $id;
 
 $DB->update_record('editor_autosave', $draftData);
 }
-/*$result = $DB->get_record('editor_autosave', array('userid' => 2, 'id' => 83));
-$text = serialize($result);
-list($part1, $part2) = explode('{', $text);
-list($id1, $idS, $userid1, $useridS, $editedtime1, $editedtimeS, $formid1, $formidS, $data1, $dataS, $attachmentid1, $attachmentidS, $formurl1, $formurlS, $other) = explode(';', $part2);
-list($other1, $id, $other2) = explode('"', $idS);
-list($other1, $userid, $other2) = explode('"', $useridS);
-list($other1, $editedtime, $other2) = explode('"', $editedtimeS);
-list($other1, $formid, $other2) = explode('"', $formidS);
-list($other1, $data, $other2) = explode('"', $dataS);
-list($other1, $attachmentid, $other2) = explode('"', $attachmentidS);
-list($other1, $formurl, $other2) = explode('"', $formurlS);
-//echo $id.$userid.$editedtime.$formid,$data.$attachmentid.$formurl; */
 
-
-
-//}
- //echo $isThere;
-//save the draft data object in editor_autosave table
-//echo $DB->update_record('editor_autosave', $draftData);
 ?>
